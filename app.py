@@ -1,12 +1,11 @@
 import streamlit as st
-import pandas as pd
 import pickle
 import numpy as np
-import os
 
 st.set_page_config(page_title="Iris SVM App", layout="centered")
 
 st.title("🌸 Iris Flower Classification (SVM)")
+st.write("Predict the Iris flower species using a trained SVM model")
 
 # ---------- Load Model ----------
 @st.cache_resource
@@ -24,7 +23,7 @@ sepal_width  = st.sidebar.number_input("Sepal Width (cm)", 2.0, 4.5, 3.5)
 petal_length = st.sidebar.number_input("Petal Length (cm)", 1.0, 7.0, 1.4)
 petal_width  = st.sidebar.number_input("Petal Width (cm)", 0.1, 2.5, 0.2)
 
-# ---------- Convert to NumPy (IMPORTANT FIX) ----------
+# ---------- Input Array ----------
 input_data = np.array([
     [sepal_length, sepal_width, petal_length, petal_width]
 ])
@@ -33,10 +32,4 @@ input_data = np.array([
 if st.button("🔍 Predict"):
     prediction = model.predict(input_data)[0]
 
-    species = {
-        0: "Iris-setosa 🌼",
-        1: "Iris-versicolor 🌺",
-        2: "Iris-virginica 🌸"
-    }
-
-    st.success(f"### Predicted Species: {species[prediction]}")
+    st.success(f"### 🌼 Predicted Species: **{prediction}**")
